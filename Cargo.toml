@@ -1,0 +1,11 @@
+[package]
+name = "sort-view"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+eframe = "0.35.0"
+egui_extras = "0.35.0"
+rand = "0.10.2"
+re_format = "0.34.1"
+re_memory = "0.34.1"
