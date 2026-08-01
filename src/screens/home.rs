@@ -3,13 +3,13 @@ use std::time::{Duration, Instant};
 use eframe::egui::{Align, Color32, Direction, Layout, RichText, Slider, Ui};
 use egui_extras::{Size, StripBuilder};
 
-use crate::array::{SortAlgorithm, SortableArray};
+use crate::array::{BubbleSort, SortableArray};
 
 const DEFAULT_MIN_RANGE: u8 = 1;
 const DEFAULT_MAX_RANGE: u8 = 30;
 
 pub struct HomeScreen {
-    array: SortableArray,
+    array: SortableArray<BubbleSort>,
     bar_count: usize,
     last_execution_time: Option<Duration>,
 }
@@ -19,7 +19,6 @@ impl HomeScreen {
         Self {
             array: SortableArray::generate_random_data(
                 bar_count,
-                SortAlgorithm::BubbleSort,
                 DEFAULT_MAX_RANGE,
                 DEFAULT_MIN_RANGE,
             ),
@@ -65,9 +64,9 @@ impl HomeScreen {
                 });
                 strip.strip(|builder| {
                     builder
-                        .sizes(Size::remainder(), self.array.length())
+                        .sizes(Size::remainder(), self.array.length)
                         .horizontal(|mut strip| {
-                            for data in &self.array.data {
+                            for data in self.array.data.borrow().iter() {
                                 strip.strip(|builder| {
                                     let value = data.value as f32;
                                     let fraction = 1.0 / value;
