@@ -116,6 +116,7 @@ where
             data.push(Data { id: i, value });
         }
 
+        self.length = data.len();
         self.data = Rc::new(RefCell::new(data));
         self.sort_algorithm.reset(self.data.clone());
     }
